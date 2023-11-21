@@ -10,22 +10,29 @@ class UserDatasourceImpl implements UserDatasource {
   final api = injector.get<ApiRequest>();
 
   @override
-  Future<ApiResponse> getUser(int id) async {
+  Future<List<ApiResponse>> getAllUsers() async {
     try {
-      return await api.get(url: 'users', queryParameters: {'id': id});
+      final response = await api.getList(url: 'users');
+      final apiResponseList = <ApiResponse>[];
+
+      for (var element in response) {
+        apiResponseList.add(element);
+      }
+
+      return apiResponseList;
     } on HttpsFailure catch (e) {
       throw LoginError(
         messageError: e.messageError,
         showMessage: e.showMessage,
         fileName: 'AuthDatasourceImpl',
-        methodName: 'getUser',
+        methodName: 'getAllUsers',
       );
     } on Exception catch (e) {
       throw LoginError(
         messageError: e.toString(),
         showMessage: e.toString(),
         fileName: 'AuthDatasourceImpl',
-        methodName: 'getUser',
+        methodName: 'getAllUsers',
       );
     }
   }

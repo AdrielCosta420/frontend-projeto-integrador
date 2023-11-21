@@ -6,15 +6,15 @@ class UserData {
   final String? login;
   final String? password;
   final bool? active;
-  final DateTime dateNasc;
-  final DateTime dateCad;
+  final DateTime? dateNasc;
+  final DateTime? dateCad;
   UserData({
     this.id,
     this.login,
     this.password,
     this.active,
-    required this.dateNasc,
-    required this.dateCad,
+     this.dateNasc,
+     this.dateCad,
   });
 
   Map<String, dynamic> toMap() {
@@ -23,8 +23,8 @@ class UserData {
       'login': login,
       'senha': password,
       'ativo': active,
-      'dataNascimento': dateNasc.millisecondsSinceEpoch,
-      'dataCadastro': dateCad.millisecondsSinceEpoch,
+      'dataNascimento': dateNasc,
+      'dataCadastro': dateCad,
     };
   }
 

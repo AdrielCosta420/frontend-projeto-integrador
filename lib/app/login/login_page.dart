@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:projeto_integrador4/injectable.dart';
 
 import '../../modules/auth/domain/login_store.dart';
+import '../../common/custom_app_bar.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -16,6 +17,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
+   
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
