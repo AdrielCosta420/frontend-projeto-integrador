@@ -28,8 +28,8 @@ class UserRepositoryImpl implements UserRepository {
         UserErrors(
           messageError: e.toString(),
           showMessage: e.toString(),
-          fileName: 'ModuleCourseRepositoryImpl',
-          methodName: 'getAllModules',
+          fileName: 'UserRepositoryImpl',
+          methodName: 'getAllUsers',
         ),
       );
     }

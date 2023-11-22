@@ -3,6 +3,7 @@ import 'package:projeto_integrador4/core/constants/typedef.dart';
 import 'package:projeto_integrador4/injectable.dart';
 import 'package:projeto_integrador4/modules/auth/domain/entities/credentials.dart';
 import 'package:projeto_integrador4/modules/auth/infra/datasource/auth_datasource.dart';
+import 'package:projeto_integrador4/modules/user/domain/entities/user_data.dart';
 
 import '../../../../core/api/https_failure.dart';
 import '../../domain/errors/login_errors.dart';
@@ -27,6 +28,27 @@ class AuthDatasourceImpl implements AuthDatasource {
         showMessage: e.toString(),
         fileName: 'AuthDatasourceImpl',
         methodName: 'login',
+      );
+    }
+  }
+
+  @override
+  Future<ApiResponse> createUser({required UserData user}) async {
+    try {
+      return await api.post(url: 'saveUser', data: user.toMap());
+    } on HttpsFailure catch (e) {
+      throw LoginError(
+        messageError: e.messageError,
+        showMessage: e.showMessage,
+        fileName: 'AuthDatasourceImpl',
+        methodName: 'createUser',
+      );
+    } on Exception catch (e) {
+      throw LoginError(
+        messageError: e.toString(),
+        showMessage: e.toString(),
+        fileName: 'AuthDatasourceImpl',
+        methodName: 'createUser',
       );
     }
   }

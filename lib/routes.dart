@@ -2,8 +2,10 @@ import 'package:routefly/routefly.dart';
 
 import 'app/admin/admin_page.dart' as a0;
 import 'app/app_page.dart' as a1;
-import 'app/login/login_page.dart' as a2;
-import 'app/users/user_page.dart' as a3;
+import 'app/carros/carros_page.dart' as a2;
+import 'app/login/login_page.dart' as a3;
+import 'app/users/criar_usuario_page.dart' as a4;
+import 'app/users/user_page.dart' as a5;
 
 List<RouteEntity> get routes => [
   RouteEntity(
@@ -25,12 +27,30 @@ List<RouteEntity> get routes => [
     ),
   ),
   RouteEntity(
+    key: '/carros',
+    uri: Uri.parse('/carros'),
+    routeBuilder: (ctx, settings) => Routefly.defaultRouteBuilder(
+      ctx,
+      settings,
+      const a2.CarrosPage(),
+    ),
+  ),
+  RouteEntity(
     key: '/login',
     uri: Uri.parse('/login'),
     routeBuilder: (ctx, settings) => Routefly.defaultRouteBuilder(
       ctx,
       settings,
-      const a2.LoginPage(),
+      const a3.LoginPage(),
+    ),
+  ),
+  RouteEntity(
+    key: '/users/criar_usuario',
+    uri: Uri.parse('/users/criar_usuario'),
+    routeBuilder: (ctx, settings) => Routefly.defaultRouteBuilder(
+      ctx,
+      settings,
+      const a4.CriarUsuarioPage(),
     ),
   ),
   RouteEntity(
@@ -39,7 +59,7 @@ List<RouteEntity> get routes => [
     routeBuilder: (ctx, settings) => Routefly.defaultRouteBuilder(
       ctx,
       settings,
-      const a3.UserPage(),
+      const a5.UserPage(),
     ),
   ),
 ];
@@ -47,9 +67,11 @@ List<RouteEntity> get routes => [
 const routePaths = (
   path: '/',
   admin: '/admin',
+  carros: '/carros',
   login: '/login',
   users: (
     path: '/users',
+    criarUsuario: '/users/criar_usuario',
     user: '/users/user',
   ),
 );

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_triple/flutter_triple.dart';
-import 'package:projeto_integrador4/app/users/user_store.dart';
+import 'package:projeto_integrador4/app/users/stores/pessoa_store.dart';
+import 'package:projeto_integrador4/common/custom_menu.dart';
 import 'package:projeto_integrador4/injectable.dart';
+import 'package:projeto_integrador4/modules/pessoa/domain/entities/pessoa.dart';
+import 'package:projeto_integrador4/routes.dart';
+import 'package:routefly/routefly.dart';
 
 class UserPage extends StatefulWidget {
   const UserPage({super.key});
@@ -11,27 +15,61 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> {
-  final userStore = injector.get<UserStore>();
+  final store = injector.get<PessoaStore>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ScopedBuilder(
-        store: userStore,
-        onState: (context, state) => Center(
-          child: Container(
-            width: 300,
-            height: 300,
-            color: Colors.red,
-            child: ListView.builder(
-                itemCount: userStore.state.length,
-                itemBuilder: (context, index) {
-                  final user = userStore.state[index];
-                  return Container(
-                      color: Colors.blue,
-                      child: Text('${user.login} AQQQQQQQQ'));
-                }),
-          ),
+      body: CustomMenu(
+        widget: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Text('Exibir os usuarios +/- aq'),
+            Expanded(
+              child: ScopedBuilder<PessoaStore, List<Pessoa>>(
+                store: store,
+                onState: (context, state) => ListView.builder(
+                  itemCount: store.state.length,
+                  itemBuilder: (context, index) {
+                    final pessoa = store.state[index];
+                    return Container(
+                      height: 100,
+                      width: 200,
+                      margin: const EdgeInsets.all(16),
+                      decoration: ShapeDecoration(
+                        color: Colors.red,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                      ),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                '${pessoa.nome}',
+                                //     style: const TextStyle(fontSize: 25),
+                              ),
+                              Text('${pessoa.email}'),
+                              Text('${pessoa.telefone}'),
+                              Text('${pessoa.dataNasc}'),
+                              Text('${pessoa.cpf}'),
+                            ],
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+            ElevatedButton(
+                onPressed: () =>
+                    Routefly.navigate(routePaths.users.criarUsuario),
+                child: const Text('Adicionar novo usuário'))
+          ],
         ),
       ),
     );
