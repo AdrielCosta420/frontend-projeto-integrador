@@ -1,3 +1,5 @@
+import 'package:projeto_integrador4/modules/car/domain/entities/car.dart';
+
 import '../../../../core/api/api_request.dart';
 import '../../../../core/constants/typedef.dart';
 import '../../../../injectable.dart';
@@ -54,6 +56,27 @@ class CarDatasourceImpl implements CarDatasource {
         showMessage: e.toString(),
         fileName: 'CarDatasourceImpl',
         methodName: 'getCarById',
+      );
+    }
+  }
+
+  @override
+  Future<ApiResponse> createCarro(Car carro) async {
+    try {
+      return await api.post(url: 'saveCarro', data: carro.toMap());
+    } on HttpsFailure catch (e) {
+      throw CarErrors(
+        messageError: e.messageError,
+        showMessage: e.showMessage,
+        fileName: 'CarDatasourceImpl',
+        methodName: 'createCarro',
+      );
+    } on Exception catch (e) {
+      throw CarErrors(
+        messageError: e.toString(),
+        showMessage: e.toString(),
+        fileName: 'CarDatasourceImpl',
+        methodName: 'createCarro',
       );
     }
   }

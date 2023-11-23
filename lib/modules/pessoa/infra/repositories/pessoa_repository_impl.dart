@@ -51,4 +51,44 @@ class PessoaRepositoryImpl implements PessoaRepository {
       );
     }
   }
+  
+  @override
+  Future<Result<PessoaErrors, Pessoa>> updatePessoa({required Pessoa pessoa}) async{
+    try {
+      final response = await datasource.updatePessoa(pessoa: pessoa);
+
+      return Result.success(Pessoa.fromMap(response));
+    } on PessoaErrors catch (e) {
+      return Result.failure(e);
+    } on Exception catch (e) {
+      return Result.failure(
+        PessoaErrors(
+          messageError: e.toString(),
+          showMessage: e.toString(),
+          fileName: 'PessoaRepositoryImpl',
+          methodName: 'updatePessoa',
+        ),
+      );
+    }
+  }
+  
+  @override
+  Future<Result<PessoaErrors, String>> deletePessoa({required Pessoa pessoa}) async {
+    try {
+        final response = await datasource.deletePessoa(pessoa: pessoa);
+
+      return Result.success('${pessoa.nome} deletado com sucesso! $response');
+    } on PessoaErrors catch (e) {
+      return Result.failure(e);
+    } on Exception catch (e) {
+      return Result.failure(
+        PessoaErrors(
+          messageError: e.toString(),
+          showMessage: e.toString(),
+          fileName: 'PessoaRepositoryImpl',
+          methodName: 'deletePessoa',
+        ),
+      );
+    }
+  }
 }

@@ -126,6 +126,27 @@ class DioRequestImpl implements ApiRequest {
     }
   
   }
+  
+  @override
+  Future<ApiResponse> put({required String url, Map? data, Map<String, dynamic>? queryParameters}) async {
+     try {
+      final response = await _dio.put(
+        url,
+        queryParameters: queryParameters,
+        data: data,
+      );
+  
+      return response.data;
+    } on DioException catch (error) {
+      throw HttpsFailure.fromDioException(error);
+    } on Exception catch (error) {
+      throw HttpsFailure(
+        code: 999,
+        error: error.toString(),
+        method: 'patch',
+      );
+    }
+  }
 
  
 }

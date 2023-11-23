@@ -5,4 +5,6 @@ import 'package:projeto_integrador4/modules/pessoa/domain/errors/pessoa_errors.d
 abstract interface class PessoaRepository {
   Future<Result<PessoaErrors, List<Pessoa>>> getAllPessoas();
   Future<Result<PessoaErrors, Pessoa>> createPessoa({required Pessoa pessoa});
+  Future<Result<PessoaErrors, Pessoa>> updatePessoa({required Pessoa pessoa});
+  Future<Result<PessoaErrors, String>> deletePessoa({required Pessoa pessoa});
 }

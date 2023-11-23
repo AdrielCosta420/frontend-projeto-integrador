@@ -58,4 +58,49 @@ class PessoaDatasourceImpl implements PessoaDatasource {
       );
     }
   }
+
+  @override
+  Future<ApiResponse> updatePessoa({required Pessoa pessoa}) async {
+    try {
+      final response = await api.put(
+          url: 'atualizarPessoa/${pessoa.id}', data: pessoa.toMap());
+      return response;
+    } on HttpsFailure catch (e) {
+      throw PessoaErrors(
+        messageError: e.messageError,
+        showMessage: e.showMessage,
+        fileName: 'PessoaDatasourceImpl',
+        methodName: 'updatePessoa',
+      );
+    } on Exception catch (e) {
+      throw PessoaErrors(
+        messageError: e.toString(),
+        showMessage: e.toString(),
+        fileName: 'PessoaDatasourceImpl',
+        methodName: 'updatePessoa',
+      );
+    }
+  }
+
+  @override
+  Future<ApiResponse> deletePessoa({required Pessoa pessoa}) async {
+    try {
+      final response = await api.delete(url: 'delete/${pessoa.id}');
+      return response;
+    } on HttpsFailure catch (e) {
+      throw PessoaErrors(
+        messageError: e.messageError,
+        showMessage: e.showMessage,
+        fileName: 'PessoaDatasourceImpl',
+        methodName: 'deletePessoa',
+      );
+    } on Exception catch (e) {
+      throw PessoaErrors(
+        messageError: e.toString(),
+        showMessage: e.toString(),
+        fileName: 'PessoaDatasourceImpl',
+        methodName: 'deletePessoa',
+      );
+    }
+  }
 }

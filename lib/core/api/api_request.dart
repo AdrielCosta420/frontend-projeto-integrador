@@ -20,6 +20,10 @@ abstract interface class ApiRequest {
     Map<String, dynamic>? queryParameters,
   });
 
+  Future<ApiResponse> put({ required String url,
+    Map? data,
+    Map<String, dynamic>? queryParameters,});
+
   Future<ApiResponse> patch({
     required String url,
     Map? data,

@@ -45,7 +45,7 @@ class CustomMenu extends StatelessWidget {
                         end: 4,
                       ),
                       isSelected: true,
-                      onTap: () => Routefly.navigate(routePaths.carros),
+                      onTap: () => Routefly.navigate(routePaths.carros.path),
                       title: ' Carros',
                       icon: const Icon(
                         Icons.no_crash_sharp,

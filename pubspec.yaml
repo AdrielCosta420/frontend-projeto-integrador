@@ -24,6 +24,7 @@ dependencies:
   dartz: ^0.10.1
   loading_animation_widget: ^1.2.0+4
   flutter_side_menu: ^0.4.0
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:

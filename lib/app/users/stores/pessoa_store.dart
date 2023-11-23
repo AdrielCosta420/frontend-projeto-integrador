@@ -19,15 +19,4 @@ class PessoaStore extends Store<List<Pessoa>> {
     );
     setLoading(false);
   }
-
-  Future<void> createPessoa(Pessoa pessoa) async {
-    setLoading(true);
-
-    final response = await repository.createPessoa(pessoa: pessoa);
-
-    response.fold(
-      (error) => error.messageError,
-      (success) => (success),
-    );
-  }
 }

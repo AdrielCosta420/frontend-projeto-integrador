@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CustomTextFormField extends StatelessWidget {
   final TextEditingController textController;
@@ -7,6 +8,9 @@ class CustomTextFormField extends StatelessWidget {
   final int? maxLines;
   final Function(String)? onChanged;
   final IconData icon;
+  final String? Function(String?)? validator;
+  final TextInputType? keyboardType;
+  final List<TextInputFormatter>? inputFormatters;
   const CustomTextFormField({
     super.key,
     required this.textController,
@@ -15,17 +19,17 @@ class CustomTextFormField extends StatelessWidget {
     this.maxLines,
     this.onChanged,
     required this.icon,
+    this.validator,
+    this.keyboardType,
+    this.inputFormatters,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Campo obrigatório';
-        }
-        return null;
-      },
+      validator: validator,
+      keyboardType: keyboardType,
+      inputFormatters: inputFormatters,
       focusNode: FocusNode(),
       style: const TextStyle(
         color: Colors.black,

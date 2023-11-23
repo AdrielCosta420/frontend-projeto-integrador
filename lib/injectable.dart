@@ -1,9 +1,12 @@
 import 'package:get_it/get_it.dart';
-import 'package:projeto_integrador4/app/carros/carros_store.dart';
+import 'package:projeto_integrador4/app/carros/stores/carros_store.dart';
+import 'package:projeto_integrador4/app/users/stores/criar_pessoa_store.dart';
 import 'package:projeto_integrador4/app/users/stores/pessoa_store.dart';
 import 'package:projeto_integrador4/modules/car/domain/repositories/car_repository.dart';
 import 'package:projeto_integrador4/modules/car/external/datasource/car_datasource_impl.dart';
 import 'package:projeto_integrador4/modules/car/infra/datasource/car_datasource.dart';
+import 'app/carros/stores/criar_carro_store.dart';
+import 'app/users/stores/delete_pessoa_store.dart';
 import 'app/users/stores/user_store.dart';
 import 'modules/auth/domain/login_store.dart';
 //import 'package:projeto_integrador4/app/login_store.dart';
@@ -66,4 +69,7 @@ void storeInjector() {
   injector.registerLazySingleton(() => UserStore());
   injector.registerLazySingleton(() => CarrosStore());
   injector.registerLazySingleton(() => PessoaStore());
+  injector.registerLazySingleton(() => CriarCarroStore());
+  injector.registerLazySingleton(() => CriarPessoaStore());
+  injector.registerLazySingleton(() => DeletePessoaStore());
 }

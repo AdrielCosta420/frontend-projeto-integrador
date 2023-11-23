@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_integrador4/app/users/stores/pessoa_store.dart';
+import 'package:flutter/services.dart';
+import 'package:projeto_integrador4/app/users/stores/criar_pessoa_store.dart';
 import 'package:projeto_integrador4/injectable.dart';
 import 'package:projeto_integrador4/modules/pessoa/domain/entities/pessoa.dart';
 import 'package:projeto_integrador4/routes.dart';
@@ -16,7 +17,7 @@ class CriarUsuarioPage extends StatefulWidget {
 }
 
 class _CriarUsuarioPageState extends State<CriarUsuarioPage> {
-  final store = injector.get<PessoaStore>();
+  final store = injector.get<CriarPessoaStore>();
   final formKey = GlobalKey<FormState>();
 
   TextEditingController loginController = TextEditingController();
@@ -34,7 +35,7 @@ class _CriarUsuarioPageState extends State<CriarUsuarioPage> {
       widget: Center(
         child: Container(
           width: MediaQuery.of(context).size.width * .5,
-          height: MediaQuery.of(context).size.height * .6,
+          height: MediaQuery.of(context).size.height * .7,
           decoration: BoxDecoration(
             color: Colors.indigo[50],
             borderRadius: BorderRadius.circular(15),
@@ -54,20 +55,55 @@ class _CriarUsuarioPageState extends State<CriarUsuarioPage> {
                       letterSpacing: 0.2),
                 ),
                 CustomTextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Campo Obrigatório.';
+                      }
+                      return null;
+                    },
                     textController: nomeController,
                     label: 'Nome',
                     icon: Icons.account_circle_outlined),
                 CustomTextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Campo Obrigatório.';
+                    }
+                    return null;
+                  },
                   textController: emailController,
                   label: 'E-mail',
                   icon: Icons.email_outlined,
                 ),
                 CustomTextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty || value.length != 11) {
+                      return 'Telefone inválido';
+                    }
+                    return null;
+                  },
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                    LengthLimitingTextInputFormatter(11),
+                  ],
+                  keyboardType: TextInputType.number,
                   textController: telefoneController,
                   label: 'Telefone',
                   icon: Icons.smartphone_rounded,
                 ),
                 CustomTextFormField(
+                  validator: (value) {
+                  
+                    if (value == null || value.isEmpty) {
+                      return 'Data de nascimento inválida, insira no formato ano-mês-dia.';
+                    }
+                    return null;
+                  },
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                    LengthLimitingTextInputFormatter(8),
+                  ],
+                  keyboardType: TextInputType.number,
                   textController: dataNascController,
                   label: 'Data de Nascimento',
                   icon: Icons.date_range_outlined,
@@ -75,6 +111,17 @@ class _CriarUsuarioPageState extends State<CriarUsuarioPage> {
                 // CustomTextFormField(
                 //     textController: dataCadController, label: 'Data de Cadastro'),
                 CustomTextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty || value.length != 11) {
+                      return 'CPF inválido';
+                    }
+                    return null;
+                  },
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                    LengthLimitingTextInputFormatter(11),
+                  ],
+                  keyboardType: TextInputType.number,
                   textController: cpfController,
                   label: 'CPF',
                   icon: Icons.medical_information_outlined,
@@ -95,8 +142,8 @@ class _CriarUsuarioPageState extends State<CriarUsuarioPage> {
                       ),
                       onPressed: () {
                         if (formKey.currentState?.validate() ?? false) {
-                          store.repository.createPessoa(
-                              pessoa: Pessoa(
+                       store.createPessoa(
+                              Pessoa(
                             nome: nomeController.text,
                             email: emailController.text,
                             telefone: telefoneController.text,
