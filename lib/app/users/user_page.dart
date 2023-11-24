@@ -185,9 +185,7 @@ class _UserPageState extends State<UserPage> {
                                           ),
                                           const Divider(),
                                           Text(
-                                            pessoa.dataNasc
-                                                .toString()
-                                                .substring(0, 10),
+                                            pessoa.dataNasc.toString(),
                                             textAlign: TextAlign.center,
                                             style: const TextStyle(
                                               fontSize: 15,

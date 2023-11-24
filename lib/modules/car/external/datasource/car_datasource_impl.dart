@@ -80,4 +80,48 @@ class CarDatasourceImpl implements CarDatasource {
       );
     }
   }
+  
+  @override
+  Future<ApiResponse> deleteCarro(Car carro) async {
+    try {
+      return await api.delete(url: 'deleteCarro/${carro.id}');
+    } on HttpsFailure catch (e) {
+      throw CarErrors(
+        messageError: e.messageError,
+        showMessage: e.showMessage,
+        fileName: 'CarDatasourceImpl',
+        methodName: 'deleteCarro',
+      );
+    } on Exception catch (e) {
+      throw CarErrors(
+        messageError: e.toString(),
+        showMessage: e.toString(),
+        fileName: 'CarDatasourceImpl',
+        methodName: 'deletePessoa',
+      );
+    }
+  }
+  
+  @override
+  Future<ApiResponse> updateCarro(Car carro) async {
+    try {
+      final response = await api.put(
+          url: 'atualizarPessoa/${carro.id}', data: carro.toMap());
+      return response;
+    } on HttpsFailure catch (e) {
+      throw CarErrors(
+        messageError: e.messageError,
+        showMessage: e.showMessage,
+        fileName: 'PessoaDatasourceImpl',
+        methodName: 'updatePessoa',
+      );
+    } on Exception catch (e) {
+      throw CarErrors(
+        messageError: e.toString(),
+        showMessage: e.toString(),
+        fileName: 'PessoaDatasourceImpl',
+        methodName: 'updatePessoa',
+      );
+    }
+  }
 }

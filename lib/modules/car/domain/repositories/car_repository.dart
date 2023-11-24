@@ -6,4 +6,7 @@ abstract interface class CarRepository {
   Future<Result<CarErrors, List<Car>>> getAllCar();
   Future<Result<CarErrors, Car>> getCarById(int id);
   Future<Result<CarErrors, Car>> createCarro(Car carro);
+  Future<Result<CarErrors, Car>> updateCarro(Car carro);
+  Future<Result<CarErrors, String>> deleteCarro(Car carro);
+
 }

@@ -85,8 +85,7 @@ class PessoaDatasourceImpl implements PessoaDatasource {
   @override
   Future<ApiResponse> deletePessoa({required Pessoa pessoa}) async {
     try {
-      final response = await api.delete(url: 'delete/${pessoa.id}');
-      return response;
+      return await api.delete(url: 'delete/${pessoa.id}');
     } on HttpsFailure catch (e) {
       throw PessoaErrors(
         messageError: e.messageError,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_triple/flutter_triple.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:projeto_integrador4/app/carros/stores/carros_store.dart';
+import 'package:projeto_integrador4/app/carros/stores/criar_carro_store.dart';
 import 'package:projeto_integrador4/injectable.dart';
 import 'package:projeto_integrador4/modules/car/domain/entities/car.dart';
 import 'package:routefly/routefly.dart';
@@ -18,6 +19,7 @@ class CarrosPage extends StatefulWidget {
 
 class _CarrosPageState extends State<CarrosPage> {
   final store = injector.get<CarrosStore>();
+  final updateCarro = injector.get<CriarCarroStore>();
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +80,8 @@ class _CarrosPageState extends State<CarrosPage> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       IconButton(
-                                          onPressed: () {},
+                                          onPressed: () =>
+                                              showDeleteCarro(context, carro),
                                           icon: const Icon(
                                             Icons.delete_forever,
                                             color: Colors.red,
@@ -93,7 +96,8 @@ class _CarrosPageState extends State<CarrosPage> {
                                         ),
                                       ),
                                       IconButton(
-                                          onPressed: () {},
+                                          onPressed: () =>
+                                              editCarro(context, carro),
                                           icon: Icon(
                                             Icons.edit,
                                             color: Colors.blue.shade300,
@@ -162,6 +166,121 @@ class _CarrosPageState extends State<CarrosPage> {
         onPressed: () => Routefly.navigate(routePaths.carros.criarCarro),
         label: const Text('Adicionar novo carro'),
       ),
+    );
+  }
+
+  void showDeleteCarro(BuildContext context, Car carro) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirmar exclusão'),
+          content: Text('Tem certeza que deseja excluir ${carro.modelo}?'),
+          actions: <Widget>[
+            ElevatedButton(
+              onPressed: () {
+                updateCarro.updateCarro(carro);
+
+                Navigator.of(context).pop(); // Fecha o modal
+              },
+              child: const Text('Confirmar'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Fecha o modal
+              },
+              child: const Text('Cancelar'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void editCarro(BuildContext context, Car carro) {
+    TextEditingController marcaController =
+        TextEditingController(text: carro.marca);
+    TextEditingController modeloController =
+        TextEditingController(text: carro.modelo);
+    TextEditingController descricaoController =
+        TextEditingController(text: carro.descricao);
+    TextEditingController anoModeloController = TextEditingController(
+        text: DateTime.parse(carro.anoModelo.toString().substring(0, 10))
+            .toString());
+    TextEditingController anoFabricacaoController = TextEditingController(
+        text: DateTime.parse(carro.anoFabricacao.toString().substring(0, 10))
+            .toString());
+    TextEditingController valorController =
+        TextEditingController(text: carro.valor.toString());
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Editar Carro'),
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                TextField(
+                  controller: marcaController,
+                  decoration: const InputDecoration(labelText: 'Marca'),
+                ),
+                TextField(
+                  controller: modeloController,
+                  decoration: const InputDecoration(labelText: 'Email'),
+                ),
+                TextField(
+                  controller: descricaoController,
+                  decoration: const InputDecoration(labelText: 'Telefone'),
+                ),
+                TextField(
+                  controller: anoModeloController,
+                  decoration:
+                      const InputDecoration(labelText: 'Data de Nascimento'),
+                ),
+                TextField(
+                  controller: anoFabricacaoController,
+                  decoration: const InputDecoration(labelText: 'CPF'),
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            ElevatedButton(
+              onPressed: () {
+                String marca = marcaController.text;
+                String modelo = modeloController.text;
+                String descricao = descricaoController.text;
+                String anoModelo = anoModeloController.text;
+                String anoFabricacao = anoFabricacaoController.text;
+                String valor = valorController.text;
+
+                updateCarro.updateCarro(
+                  Car(
+                    id: carro.id,
+                    marca: marca,
+                    modelo: modelo,
+                    descricao: descricao,
+                    anoModelo: DateTime.parse(anoModelo),
+                    anoFabricacao: DateTime.parse(anoFabricacao),
+                    valor: double.tryParse(valor),
+                  ),
+                );
+
+                Navigator.of(context).pop(); // Fecha o modal
+              },
+              child: const Text('Salvar'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Fecha o modal
+              },
+              child: const Text('Cancelar'),
+            ),
+          ],
+        );
+      },
     );
   }
 }

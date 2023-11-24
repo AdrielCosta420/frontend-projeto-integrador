@@ -74,4 +74,44 @@ class CarRepositoryImpl implements CarRepository {
       );
     }
   }
+  
+  @override
+  Future<Result<CarErrors, String>> deleteCarro(Car carro) async {
+       try {
+      final response = await datasource.deleteCarro(carro);
+
+      return Result.success(response['message']);
+    } on CarErrors catch (e) {
+      return Result.failure(e);
+    } on Exception catch (e) {
+      return Result.failure(
+        CarErrors(
+          messageError: e.toString(),
+          showMessage: e.toString(),
+          fileName: 'CarRepositoryImpl',
+          methodName: 'deleteCarro',
+        ),
+      );
+    }
+  }
+  
+  @override
+  Future<Result<CarErrors, Car>> updateCarro(Car carro) async {
+     try {
+      final response = await datasource.updateCarro(carro);
+
+      return Result.success(Car.fromMap(response));
+    } on CarErrors catch (e) {
+      return Result.failure(e);
+    } on Exception catch (e) {
+      return Result.failure(
+        CarErrors(
+          messageError: e.toString(),
+          showMessage: e.toString(),
+          fileName: 'PessoaRepositoryImpl',
+          methodName: 'updatePessoa',
+        ),
+      );
+    }
+  }
 }

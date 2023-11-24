@@ -10,13 +10,24 @@ class CriarCarroStore extends Store<Car> {
   CriarCarroStore() : super(Car());
 
   Future<void> createCarro(Car carro) async {
+    setLoading(true);
     final response = await repository.createCarro(carro);
 
-    response.fold(
-      (error) => error.showMessage, 
-      (success) {
+    response.fold((error) => error.showMessage, (success) {
       update(success);
       carroStore.getAllCar();
     });
+    setLoading(false);
+  }
+
+  Future<void> updateCarro(Car carro) async {
+    setLoading(true);
+    final response = await repository.updateCarro(carro);
+
+    response.fold((error) => error.showMessage, (success) {
+      update(success);
+      carroStore.getAllCar();
+    });
+    setLoading(false);
   }
 }

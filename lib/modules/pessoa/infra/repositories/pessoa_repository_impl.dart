@@ -9,8 +9,9 @@ class PessoaRepositoryImpl implements PessoaRepository {
   final datasource = injector.get<PessoaDatasource>();
 
   @override
-  Future<Result<PessoaErrors, Pessoa>> createPessoa({required Pessoa pessoa}) async {
-     try {
+  Future<Result<PessoaErrors, Pessoa>> createPessoa(
+      {required Pessoa pessoa}) async {
+    try {
       final response = await datasource.createPessoa(pessoa: pessoa);
 
       return Result.success(Pessoa.fromMap(response));
@@ -51,9 +52,10 @@ class PessoaRepositoryImpl implements PessoaRepository {
       );
     }
   }
-  
+
   @override
-  Future<Result<PessoaErrors, Pessoa>> updatePessoa({required Pessoa pessoa}) async{
+  Future<Result<PessoaErrors, Pessoa>> updatePessoa(
+      {required Pessoa pessoa}) async {
     try {
       final response = await datasource.updatePessoa(pessoa: pessoa);
 
@@ -71,13 +73,14 @@ class PessoaRepositoryImpl implements PessoaRepository {
       );
     }
   }
-  
-  @override
-  Future<Result<PessoaErrors, String>> deletePessoa({required Pessoa pessoa}) async {
-    try {
-        final response = await datasource.deletePessoa(pessoa: pessoa);
 
-      return Result.success('${pessoa.nome} deletado com sucesso! $response');
+  @override
+  Future<Result<PessoaErrors, String>> deletePessoa(
+      {required Pessoa pessoa}) async {
+    try {
+      final response = await datasource.deletePessoa(pessoa: pessoa);
+
+      return Result.success(response['message']);
     } on PessoaErrors catch (e) {
       return Result.failure(e);
     } on Exception catch (e) {
