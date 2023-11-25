@@ -9,7 +9,7 @@ class Car {
   final DateTime? anoModelo;
   final double? valor;
   final String? descricao;
-  final bool? carroInteresse;
+  bool? carroInteresse;
   Car({
     this.id,
     this.marca,
@@ -56,4 +56,26 @@ class Car {
 
   factory Car.fromJson(String source) =>
       Car.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  Car copyWith({
+    int? id,
+    String? marca,
+    String? modelo,
+    DateTime? anoFabricacao,
+    DateTime? anoModelo,
+    double? valor,
+    String? descricao,
+    bool? carroInteresse,
+  }) {
+    return Car(
+      id: id ?? this.id,
+      marca: marca ?? this.marca,
+      modelo: modelo ?? this.modelo,
+      anoFabricacao: anoFabricacao ?? this.anoFabricacao,
+      anoModelo: anoModelo ?? this.anoModelo,
+      valor: valor ?? this.valor,
+      descricao: descricao ?? this.descricao,
+      carroInteresse: carroInteresse ?? this.carroInteresse,
+    );
+  }
 }

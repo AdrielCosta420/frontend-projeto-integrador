@@ -4,10 +4,11 @@ import 'app/admin/admin_page.dart' as a0;
 import 'app/app_page.dart' as a1;
 import 'app/carros/all_carros_page.dart' as a2;
 import 'app/carros/criar_carro_page.dart' as a3;
-import 'app/carros/reserva_carro_page.dart' as a4;
-import 'app/login/login_page.dart' as a5;
-import 'app/users/criar_usuario_page.dart' as a6;
-import 'app/users/user_page.dart' as a7;
+import 'app/carros/interesse_carro_page.dart' as a4;
+import 'app/carros/reservar_carro_page.dart' as a5;
+import 'app/login/login_page.dart' as a6;
+import 'app/users/criar_usuario_page.dart' as a7;
+import 'app/users/user_page.dart' as a8;
 
 List<RouteEntity> get routes => [
   RouteEntity(
@@ -47,12 +48,21 @@ List<RouteEntity> get routes => [
     ),
   ),
   RouteEntity(
-    key: '/carros/reserva_carro',
-    uri: Uri.parse('/carros/reserva_carro'),
+    key: '/carros/interesse_carro',
+    uri: Uri.parse('/carros/interesse_carro'),
     routeBuilder: (ctx, settings) => Routefly.defaultRouteBuilder(
       ctx,
       settings,
-      const a4.ReservaCarroPage(),
+      const a4.InteresseCarroPage(),
+    ),
+  ),
+  RouteEntity(
+    key: '/carros/reservar_carro',
+    uri: Uri.parse('/carros/reservar_carro'),
+    routeBuilder: (ctx, settings) => Routefly.defaultRouteBuilder(
+      ctx,
+      settings,
+      const a5.ReservarCarroPage(),
     ),
   ),
   RouteEntity(
@@ -61,7 +71,7 @@ List<RouteEntity> get routes => [
     routeBuilder: (ctx, settings) => Routefly.defaultRouteBuilder(
       ctx,
       settings,
-      const a5.LoginPage(),
+      const a6.LoginPage(),
     ),
   ),
   RouteEntity(
@@ -70,7 +80,7 @@ List<RouteEntity> get routes => [
     routeBuilder: (ctx, settings) => Routefly.defaultRouteBuilder(
       ctx,
       settings,
-      const a6.CriarUsuarioPage(),
+      const a7.CriarUsuarioPage(),
     ),
   ),
   RouteEntity(
@@ -79,7 +89,7 @@ List<RouteEntity> get routes => [
     routeBuilder: (ctx, settings) => Routefly.defaultRouteBuilder(
       ctx,
       settings,
-      const a7.UserPage(),
+      const a8.UserPage(),
     ),
   ),
 ];
@@ -91,7 +101,8 @@ const routePaths = (
     path: '/carros',
     allCarros: '/carros/all_carros',
     criarCarro: '/carros/criar_carro',
-    reservaCarro: '/carros/reserva_carro',
+    interesseCarro: '/carros/interesse_carro',
+    reservarCarro: '/carros/reservar_carro',
   ),
   login: '/login',
   users: (

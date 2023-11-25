@@ -93,7 +93,7 @@ class _LoginPageState extends State<LoginPage> {
                     const SizedBox(
                       height: 16,
                     ),
-                    TextFormField(
+                    TextFormField(obscureText: true,
                       textAlign: TextAlign.center,
                       focusNode: FocusNode(),
                       style: const TextStyle(
@@ -167,6 +167,7 @@ class _LoginPageState extends State<LoginPage> {
                                   ],
                                 ),
                                 actions: <Widget>[
+                                  
                                   TextButton(
                                     onPressed: () {
                                       // Aqui você faria a validação do email e data de nascimento

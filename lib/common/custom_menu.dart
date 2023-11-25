@@ -76,12 +76,28 @@ class _CustomMenuState extends State<CustomMenu> {
                     ),
                     isSelected: true,
                     onTap: () =>
-                        Routefly.navigate(routePaths.carros.reservaCarro),
-                    title: 'Reserva de carros',
+                        Routefly.navigate(routePaths.carros.interesseCarro),
+                    title: 'Interesse de carros',
                     icon: const Icon(Icons.home),
                     hoverColor: Colors.white10,
                     //   highlightSelectedColor: const Color.fromARGB(90, 0, 0, 0),
                   ),
+                  SideMenuItemDataTile(
+                    borderRadius: BorderRadius.circular(10),
+                    margin: const EdgeInsetsDirectional.only(
+                      top: 16,
+                      bottom: 16,
+                      start: 4,
+                      end: 4,
+                    ),
+                    isSelected: true,
+                    onTap: () =>
+                        Routefly.navigate(routePaths.carros.reservarCarro),
+                    title: 'Reserva de carros',
+                    icon: const Icon(Icons.home),
+                    hoverColor: Colors.white10,
+                    //   highlightSelectedColor: const Color.fromARGB(90, 0, 0, 0),
+                  )
                 ],
                 footer: IconButton(
                   color: Colors.white,

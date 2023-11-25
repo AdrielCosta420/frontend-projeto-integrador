@@ -20,4 +20,18 @@ class CarrosStore extends Store<List<Car>> {
     );
     setLoading(false);
   }
+
+  Future<void> removeCar(Car carro) async {
+    setLoading(true);
+    final response = await repository.getAllCar();
+
+    response.fold(
+      (error) => error.messageError,
+      (success) {
+        success.removeWhere((car) => car.id == carro.id);
+        update(success);
+      },
+    );
+    setLoading(false);
+  }
 }

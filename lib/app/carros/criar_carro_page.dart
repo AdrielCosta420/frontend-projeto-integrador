@@ -161,6 +161,7 @@ class _CriarCarroPageState extends State<CriarCarroPage> {
                             anoModelo: DateTime.parse(anoModelo.text),
                             descricao: descricaoController.text,
                             valor: double.tryParse(valorController.text),
+                            carroInteresse: false,
                           ));
                           Routefly.navigate(routePaths.carros.allCarros);
                         }

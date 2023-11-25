@@ -7,6 +7,7 @@ import 'package:projeto_integrador4/app/carros/stores/delete_carro_store.dart';
 import 'package:projeto_integrador4/app/users/stores/criar_pessoa_store.dart';
 import 'package:projeto_integrador4/injectable.dart';
 import 'package:projeto_integrador4/modules/car/domain/entities/car.dart';
+import 'package:projeto_integrador4/modules/pessoa/domain/entities/pessoa.dart';
 import 'package:routefly/routefly.dart';
 
 import '../../common/custom_menu.dart';
@@ -71,99 +72,111 @@ class _CarrosPageState extends State<CarrosPage> {
                           final carro = store.state[index];
                           return Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: InkWell(
-                              onTap: () => showCarDetails(context, carro),
-                              child: Container(
-                                padding: const EdgeInsets.all(16.0),
-                                decoration: ShapeDecoration(
-                                  color: Colors.transparent,
-                                  shape: RoundedRectangleBorder(
+                            child: Visibility(
+                              visible: carro.carroInteresse == false,
+                              child: InkWell(
+                                onTap: () => showCarDetails(context, carro),
+                                child: Container(
+                                  padding: const EdgeInsets.all(16.0),
+                                  decoration: ShapeDecoration(
+                                    color: Colors.transparent,
+                                    shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10),
                                       side: const BorderSide(
-                                          color: Color(0xFF3e20dc))),
-                                ),
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        IconButton(
-                                            onPressed: () =>
-                                                showDeleteCarro(context, carro),
-                                            icon: const Icon(
-                                              Icons.delete_forever,
-                                              color: Colors.red,
+                                        color: Color(0xFF3e20dc),
+                                      ),
+                                    ),
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          IconButton(
+                                              onPressed: () => showDeleteCarro(
+                                                  context, carro),
+                                              icon: const Icon(
+                                                Icons.delete_forever,
+                                                color: Colors.red,
+                                              ),
+                                              splashRadius: 20),
+                                          Text(
+                                            '${carro.modelo}',
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 17,
+                                              letterSpacing: 0.2,
                                             ),
-                                            splashRadius: 20),
-                                        Text(
-                                          '${carro.modelo}',
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 17,
-                                            letterSpacing: 0.2,
                                           ),
-                                        ),
-                                        IconButton(
-                                            onPressed: () =>
-                                                editCarro(context, carro),
-                                            icon: Icon(
-                                              Icons.edit,
-                                              color: Colors.blue.shade300,
-                                            ),
-                                            splashRadius: 20),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        const Expanded(child: Text('MARCA')),
-                                        Expanded(child: Text('${carro.marca}')),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        const Expanded(child: Text('VALOR')),
-                                        Expanded(
-                                            child: Text('R\$${carro.valor}')),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        const Expanded(
-                                            child: Text('DESCRIÇÃO')),
-                                        Expanded(
-                                            child: Text('${carro.descricao}')),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        const Expanded(
-                                            child: Text('ANO DE FABRICAÇÃO')),
-                                        Expanded(
-                                          child: Text(carro.anoFabricacao
-                                              .toString()
-                                              .toString()
-                                              .substring(0, 10)),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        const Expanded(
-                                            child: Text('ANO MODELO')),
-                                        Expanded(
-                                          child: Text(carro.anoModelo
-                                              .toString()
-                                              .toString()
-                                              .substring(0, 10)),
-                                        ),
-                                      ],
-                                    ),
-                                    ElevatedButton(
+                                          IconButton(
+                                              onPressed: () =>
+                                                  editCarro(context, carro),
+                                              icon: Icon(
+                                                Icons.edit,
+                                                color: Colors.blue.shade300,
+                                              ),
+                                              splashRadius: 20),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          const Expanded(child: Text('MARCA')),
+                                          Expanded(
+                                              child: Text('${carro.marca}')),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          const Expanded(child: Text('VALOR')),
+                                          Expanded(
+                                              child: Text('R\$${carro.valor}')),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          const Expanded(
+                                              child: Text('DESCRIÇÃO')),
+                                          Expanded(
+                                              child:
+                                                  Text('${carro.descricao}')),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          const Expanded(
+                                              child: Text('ANO DE FABRICAÇÃO')),
+                                          Expanded(
+                                            child: Text(carro.anoFabricacao
+                                                .toString()
+                                                .toString()
+                                                .substring(0, 10)),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          const Expanded(
+                                              child: Text('ANO MODELO')),
+                                          Expanded(
+                                            child: Text(carro.anoModelo
+                                                .toString()
+                                                .toString()
+                                                .substring(0, 10)),
+                                          ),
+                                        ],
+                                      ),
+                                      ElevatedButton(
                                         onPressed: () {
+                                          setState(() {
+                                            carro.carroInteresse = true;
+                                          });
+                                          //  store.getAllCar();
+
                                           //TDODO REMOVER
 
                                           //         store.getAllCar();
@@ -177,8 +190,10 @@ class _CarrosPageState extends State<CarrosPage> {
                                             Icon(Icons.favorite_border),
                                             Text('INTERESSE')
                                           ],
-                                        ))
-                                  ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
@@ -198,6 +213,13 @@ class _CarrosPageState extends State<CarrosPage> {
         label: const Text('Adicionar novo carro'),
       ),
     );
+  }
+
+  void demonstrarInteresse(
+      Car carro, String nome, String telefone, Pessoa pessoa) {
+    carro.copyWith(carroInteresse: true);
+    pessoa.copyWith(nome: nome);
+    pessoa.copyWith(telefone: telefone);
   }
 
   void showDeleteCarro(BuildContext context, Car carro) {
