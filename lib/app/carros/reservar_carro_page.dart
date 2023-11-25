@@ -16,6 +16,13 @@ class _ReservarCarroPageState extends State<ReservarCarroPage> {
             widget: Column(
       children: [
         Text('RESERVA DE CARROS'),
+        Container(
+          width: 300,
+          height: 300,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.blueAccent),
+        )
       ],
     )));
   }

@@ -66,7 +66,7 @@ class _CarrosPageState extends State<CarrosPage> {
                           // mainAxisSpacing: 16,
                           childAspectRatio: .8,
                         ),
-                        padding: const EdgeInsets.all(20),
+                        padding: const EdgeInsets.all(30),
                         itemCount: store.state.length,
                         itemBuilder: (context, index) {
                           final carro = store.state[index];
@@ -101,7 +101,7 @@ class _CarrosPageState extends State<CarrosPage> {
                                               onPressed: () => showDeleteCarro(
                                                   context, carro),
                                               icon: const Icon(
-                                                Icons.delete_forever,
+                                                Icons.delete_forever_outlined,
                                                 color: Colors.red,
                                               ),
                                               splashRadius: 20),
@@ -109,7 +109,7 @@ class _CarrosPageState extends State<CarrosPage> {
                                             '${carro.modelo}',
                                             style: const TextStyle(
                                               fontWeight: FontWeight.bold,
-                                              fontSize: 17,
+                                              fontSize: 20,
                                               letterSpacing: 0.2,
                                             ),
                                           ),
@@ -120,7 +120,7 @@ class _CarrosPageState extends State<CarrosPage> {
                                                 Icons.edit,
                                                 color: Colors.blue.shade300,
                                               ),
-                                              splashRadius: 20),
+                                              splashRadius: 25),
                                         ],
                                       ),
                                       Row(
