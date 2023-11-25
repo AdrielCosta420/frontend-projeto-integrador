@@ -93,7 +93,6 @@ class _CriarUsuarioPageState extends State<CriarUsuarioPage> {
                 ),
                 CustomTextFormField(
                   validator: (value) {
-                  
                     if (value == null || value.isEmpty) {
                       return 'Data de nascimento inválida, insira no formato ano-mês-dia.';
                     }
@@ -142,8 +141,8 @@ class _CriarUsuarioPageState extends State<CriarUsuarioPage> {
                       ),
                       onPressed: () {
                         if (formKey.currentState?.validate() ?? false) {
-                       store.createPessoa(
-                              Pessoa(
+                          store.createPessoa(
+                            Pessoa(
                             nome: nomeController.text,
                             email: emailController.text,
                             telefone: telefoneController.text,
@@ -152,6 +151,10 @@ class _CriarUsuarioPageState extends State<CriarUsuarioPage> {
                             dataInclusao: DateTime.now(),
                             situacao: 'ATIVO',
                             perfil: 'CLIENTE',
+                            ativo: true,
+                            isAdmin: false,
+                            login: emailController.text,
+                            senha: '123',
                           ));
                           Routefly.navigate(routePaths.users.user);
                         }

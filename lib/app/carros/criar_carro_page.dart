@@ -143,7 +143,7 @@ class _CriarCarroPageState extends State<CriarCarroPage> {
                   children: [
                     ElevatedButton(
                       onPressed: () =>
-                          Routefly.navigate(routePaths.carros.path),
+                          Routefly.navigate(routePaths.carros.allCarros),
                       child: const Text('Voltar'),
                     ),
                     const SizedBox(width: 12),
@@ -162,7 +162,7 @@ class _CriarCarroPageState extends State<CriarCarroPage> {
                             descricao: descricaoController.text,
                             valor: double.tryParse(valorController.text),
                           ));
-                          Routefly.navigate(routePaths.carros.path);
+                          Routefly.navigate(routePaths.carros.allCarros);
                         }
                       },
                       child: const Text(

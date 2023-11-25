@@ -11,6 +11,10 @@ class Pessoa {
   final String? situacao;
   final String? perfil;
   final String? cpf;
+  final String? login;
+  final String? senha;
+  final bool? ativo;
+  final bool? isAdmin;
   Pessoa({
     this.id,
     this.nome,
@@ -21,6 +25,10 @@ class Pessoa {
     this.situacao,
     this.perfil,
     this.cpf,
+    this.login,
+    this.senha,
+    this.ativo,
+    this.isAdmin,
   });
 
   Map<String, dynamic> toMap() {
@@ -34,6 +42,10 @@ class Pessoa {
       'situacao': situacao,
       'perfil': perfil,
       'cpf': cpf,
+      'login': login,
+      'senha': senha,
+      'ativo': ativo,
+      'admin': isAdmin,
     };
   }
 
@@ -52,6 +64,10 @@ class Pessoa {
       situacao: map['situacao'] != null ? map['situacao'] as String : null,
       perfil: map['perfil'] != null ? map['perfil'] as String : null,
       cpf: map['cpf'] != null ? map['cpf'] as String : null,
+      login: map['login'] != null ? map['login'] as String : null,
+      senha: map['senha'] != null ? map['senha'] as String : null,
+      ativo: map['ativo'] != null ? map['ativo'] as bool : null,
+      isAdmin: map['admin'] != null ? map['admin'] as bool : null,
     );
   }
 
@@ -59,4 +75,36 @@ class Pessoa {
 
   factory Pessoa.fromJson(String source) =>
       Pessoa.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  Pessoa copyWith({
+    int? id,
+    String? nome,
+    String? email,
+    String? telefone,
+    DateTime? dataNasc,
+    DateTime? dataInclusao,
+    String? situacao,
+    String? perfil,
+    String? cpf,
+    String? login,
+    String? senha,
+    bool? ativo,
+    bool? isAdmin,
+  }) {
+    return Pessoa(
+      id: id ?? this.id,
+      nome: nome ?? this.nome,
+      email: email ?? this.email,
+      telefone: telefone ?? this.telefone,
+      dataNasc: dataNasc ?? this.dataNasc,
+      dataInclusao: dataInclusao ?? this.dataInclusao,
+      situacao: situacao ?? this.situacao,
+      perfil: perfil ?? this.perfil,
+      cpf: cpf ?? this.cpf,
+      login: login ?? this.login,
+      senha: senha ?? this.senha,
+      ativo: ativo ?? this.ativo,
+      isAdmin: isAdmin ?? this.isAdmin,
+    );
+  }
 }

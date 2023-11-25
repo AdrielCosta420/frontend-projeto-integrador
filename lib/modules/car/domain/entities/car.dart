@@ -9,6 +9,7 @@ class Car {
   final DateTime? anoModelo;
   final double? valor;
   final String? descricao;
+  final bool? carroInteresse;
   Car({
     this.id,
     this.marca,
@@ -17,6 +18,7 @@ class Car {
     this.anoModelo,
     this.valor,
     this.descricao,
+    this.carroInteresse,
   });
 
   Map<String, dynamic> toMap() {
@@ -28,6 +30,7 @@ class Car {
       'anoModelo': anoModelo?.millisecondsSinceEpoch,
       'valor': valor,
       'descricao': descricao,
+      'carroInteresse': carroInteresse,
     };
   }
 
@@ -36,14 +39,21 @@ class Car {
       id: map['id'] != null ? map['id'] as int : null,
       marca: map['marca'] != null ? map['marca'] as String : null,
       modelo: map['modelo'] != null ? map['modelo'] as String : null,
-      anoFabricacao: map['anoFabricacao'] != null ? DateTime.parse(map['anoFabricacao'] as String) : null,
-      anoModelo: map['anoModelo'] != null ? DateTime.parse(map['anoModelo'] as String) : null,
+      anoFabricacao: map['anoFabricacao'] != null
+          ? DateTime.parse(map['anoFabricacao'] as String)
+          : null,
+      anoModelo: map['anoModelo'] != null
+          ? DateTime.parse(map['anoModelo'] as String)
+          : null,
       valor: map['valor'] != null ? map['valor'] as double : null,
       descricao: map['descricao'] != null ? map['descricao'] as String : null,
+      carroInteresse:
+          map['carroInteresse'] != null ? map['carroInteresse'] as bool : null,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory Car.fromJson(String source) => Car.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory Car.fromJson(String source) =>
+      Car.fromMap(json.decode(source) as Map<String, dynamic>);
 }

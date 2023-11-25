@@ -4,18 +4,18 @@ import 'package:projeto_integrador4/modules/auth/domain/entities/credentials.dar
 import 'package:projeto_integrador4/modules/auth/domain/errors/login_errors.dart';
 import 'package:projeto_integrador4/modules/auth/domain/repositories/auth_repository.dart';
 import 'package:projeto_integrador4/modules/auth/infra/datasource/auth_datasource.dart';
-import 'package:projeto_integrador4/modules/user/domain/entities/user_data.dart';
+import 'package:projeto_integrador4/modules/pessoa/domain/entities/pessoa.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final datasource = injector.get<AuthDatasource>();
 
   @override
-  Future<Result<LoginError, UserData>> login(
+  Future<Result<LoginError, Pessoa>> login(
       {required Credentials credentials}) async {
     try {
       final response = await datasource.login(credentials: credentials);
 
-      return Result.success(UserData.fromMap(response));
+      return Result.success(Pessoa.fromMap(response));
     } on LoginError catch (e) {
       return Result.failure(e);
     } on Exception catch (e) {

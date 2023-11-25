@@ -3,8 +3,8 @@ import 'package:flutter_triple/flutter_triple.dart';
 import 'package:projeto_integrador4/injectable.dart';
 import 'package:projeto_integrador4/routes.dart';
 import 'package:routefly/routefly.dart';
-import 'entities/credentials.dart';
-import 'repositories/auth_repository.dart';
+import '../../modules/auth/domain/entities/credentials.dart';
+import '../../modules/auth/domain/repositories/auth_repository.dart';
 
 class LoginStore extends Store<Credentials> {
   LoginStore() : super(Credentials(email: '', password: ''));
@@ -35,7 +35,11 @@ class LoginStore extends Store<Credentials> {
     response.fold(
       (error) => setError(error.showMessage),
       (success) {
-        Routefly.navigate(routePaths.admin);
+        if (success.perfil == 'ADMIN') {
+          Routefly.navigate(routePaths.admin);
+        } else {
+          Routefly.navigate(routePaths.carros.allCarros);
+        }
       },
     );
     setLoading(false);

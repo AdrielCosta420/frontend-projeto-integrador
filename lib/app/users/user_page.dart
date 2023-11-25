@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_triple/flutter_triple.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:projeto_integrador4/app/users/stores/delete_pessoa_store.dart';
@@ -21,6 +22,12 @@ class _UserPageState extends State<UserPage> {
   final store = injector.get<PessoaStore>();
   final updatePessoa = injector.get<CriarPessoaStore>();
   final deletePessoa = injector.get<DeletePessoaStore>();
+
+  @override
+  void initState() {
+    store.getAllPessoas();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -221,7 +228,7 @@ class _UserPageState extends State<UserPage> {
                                         ],
                                       ),
                                       const Spacer(),
-                                      if (pessoa.perfil == 'CLIENTE')
+                                      if (pessoa.isAdmin == false)
                                         Row(
                                           children: [
                                             IconButton(
@@ -349,15 +356,29 @@ class _UserPageState extends State<UserPage> {
                   decoration: const InputDecoration(labelText: 'Email'),
                 ),
                 TextField(
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                    LengthLimitingTextInputFormatter(11),
+                  ],
                   controller: telefoneController,
                   decoration: const InputDecoration(labelText: 'Telefone'),
                 ),
                 TextField(
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                    LengthLimitingTextInputFormatter(8),
+                  ],
+                  keyboardType: TextInputType.number,
                   controller: dataNascController,
                   decoration:
                       const InputDecoration(labelText: 'Data de Nascimento'),
                 ),
                 TextField(
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                    LengthLimitingTextInputFormatter(11),
+                  ],
+                  keyboardType: TextInputType.number,
                   controller: cpfController,
                   decoration: const InputDecoration(labelText: 'CPF'),
                 ),
@@ -385,6 +406,10 @@ class _UserPageState extends State<UserPage> {
                     perfil: 'CLIENTE',
                     situacao: ativo,
                     cpf: cpf,
+                    ativo: true,
+                    isAdmin: false,
+                    login: emailController.text,
+                    senha: '123',
                   ),
                 );
 

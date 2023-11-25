@@ -112,8 +112,8 @@ class CarDatasourceImpl implements CarDatasource {
       throw CarErrors(
         messageError: e.messageError,
         showMessage: e.showMessage,
-        fileName: 'PessoaDatasourceImpl',
-        methodName: 'updatePessoa',
+        fileName: 'CarDatasourceImpl',
+        methodName: 'updateCarro',
       );
     } on Exception catch (e) {
       throw CarErrors(

@@ -2,11 +2,12 @@ import 'package:routefly/routefly.dart';
 
 import 'app/admin/admin_page.dart' as a0;
 import 'app/app_page.dart' as a1;
-import 'app/carros/carros_page.dart' as a2;
+import 'app/carros/all_carros_page.dart' as a2;
 import 'app/carros/criar_carro_page.dart' as a3;
-import 'app/login/login_page.dart' as a4;
-import 'app/users/criar_usuario_page.dart' as a5;
-import 'app/users/user_page.dart' as a6;
+import 'app/carros/reserva_carro_page.dart' as a4;
+import 'app/login/login_page.dart' as a5;
+import 'app/users/criar_usuario_page.dart' as a6;
+import 'app/users/user_page.dart' as a7;
 
 List<RouteEntity> get routes => [
   RouteEntity(
@@ -28,8 +29,8 @@ List<RouteEntity> get routes => [
     ),
   ),
   RouteEntity(
-    key: '/carros',
-    uri: Uri.parse('/carros'),
+    key: '/carros/all_carros',
+    uri: Uri.parse('/carros/all_carros'),
     routeBuilder: (ctx, settings) => Routefly.defaultRouteBuilder(
       ctx,
       settings,
@@ -46,12 +47,21 @@ List<RouteEntity> get routes => [
     ),
   ),
   RouteEntity(
+    key: '/carros/reserva_carro',
+    uri: Uri.parse('/carros/reserva_carro'),
+    routeBuilder: (ctx, settings) => Routefly.defaultRouteBuilder(
+      ctx,
+      settings,
+      const a4.ReservaCarroPage(),
+    ),
+  ),
+  RouteEntity(
     key: '/login',
     uri: Uri.parse('/login'),
     routeBuilder: (ctx, settings) => Routefly.defaultRouteBuilder(
       ctx,
       settings,
-      const a4.LoginPage(),
+      const a5.LoginPage(),
     ),
   ),
   RouteEntity(
@@ -60,7 +70,7 @@ List<RouteEntity> get routes => [
     routeBuilder: (ctx, settings) => Routefly.defaultRouteBuilder(
       ctx,
       settings,
-      const a5.CriarUsuarioPage(),
+      const a6.CriarUsuarioPage(),
     ),
   ),
   RouteEntity(
@@ -69,7 +79,7 @@ List<RouteEntity> get routes => [
     routeBuilder: (ctx, settings) => Routefly.defaultRouteBuilder(
       ctx,
       settings,
-      const a6.UserPage(),
+      const a7.UserPage(),
     ),
   ),
 ];
@@ -79,7 +89,9 @@ const routePaths = (
   admin: '/admin',
   carros: (
     path: '/carros',
+    allCarros: '/carros/all_carros',
     criarCarro: '/carros/criar_carro',
+    reservaCarro: '/carros/reserva_carro',
   ),
   login: '/login',
   users: (

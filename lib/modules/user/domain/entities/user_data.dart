@@ -9,6 +9,7 @@ class UserData {
   final bool? active;
   final DateTime? dateNasc;
   final DateTime? dateCad;
+  final bool? isAdmin;
   UserData({
     this.id,
     this.login,
@@ -17,6 +18,7 @@ class UserData {
     this.active,
     this.dateNasc,
     this.dateCad,
+    this.isAdmin,
   });
 
   Map<String, dynamic> toMap() {
@@ -28,6 +30,7 @@ class UserData {
       'ativo': active,
       'dataNascimento': dateNasc,
       'dataCadastro': dateCad,
+      'isAdmin': isAdmin,
     };
   }
 
@@ -38,8 +41,9 @@ class UserData {
       password: map['senha'] != null ? map['senha'] as String : null,
       nome: map['nome'] != null ? map['nome'] as String : null,
       active: map['ativo'] != null ? map['ativo'] as bool : null,
-      dateNasc: DateTime.parse(map['dataNascimento'] as String),
-      dateCad: DateTime.parse(map['dataCadastro'] as String),
+      dateNasc: map['dataNascimento'] != null ? DateTime.parse(map['dataNascimento'] as String) : null,
+      dateCad: map['dataCadastro'] != null ? DateTime.parse(map['dataCadastro'] as String) : null,
+      isAdmin:map['admin'] != null ? map['admin']as bool : null,
     );
   }
 

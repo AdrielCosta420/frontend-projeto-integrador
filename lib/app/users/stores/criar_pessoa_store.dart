@@ -8,7 +8,71 @@ import '../../../modules/pessoa/domain/repositories/pessoa_repository.dart';
 class CriarPessoaStore extends Store<Pessoa> {
   final repository = injector.get<PessoaRepository>();
   final pessoaStore = injector.get<PessoaStore>();
-  CriarPessoaStore() : super(Pessoa());
+  CriarPessoaStore()
+      : super(
+          Pessoa(
+            ativo: false,
+            cpf: '',
+            dataInclusao: DateTime(0),
+            dataNasc: DateTime(0),
+            email: '',
+            isAdmin: false,
+            login: '',
+            nome: '',
+            perfil: '',
+            senha: '',
+            situacao: '',
+            telefone: '',
+          ),
+        );
+
+  void changeAtivo(bool value) {
+    update(state.copyWith(ativo: value));
+  }
+
+  void changeCpf(String value) {
+    update(state.copyWith(cpf: value));
+  }
+
+  void changDataInclusao(DateTime value) {
+    update(state.copyWith(dataInclusao: value));
+  }
+
+  void changeDataNasc(DateTime value) {
+    update(state.copyWith(dataNasc: value));
+  }
+
+  void changeEmail(String value) {
+    update(state.copyWith(email: value));
+  }
+
+  void changeIsAdmin(bool value) {
+    update(state.copyWith(isAdmin: value));
+  }
+
+  void changeLogin(String value) {
+    update(state.copyWith(login: value));
+  }
+
+  void changeNome(String value) {
+    update(state.copyWith(nome: value));
+  }
+
+  void changePerfil(String value) {
+    update(state.copyWith(perfil: value));
+  }
+
+  void changeSenha(String value) {
+    update(state.copyWith(senha: value));
+  }
+
+  void changesituacao(String value) {
+    update(state.copyWith(situacao: value));
+  }
+
+  void changeTelefone(String value) {
+    update(state.copyWith(telefone: value));
+  }
 
   Future<void> createPessoa(Pessoa pessoa) async {
     setLoading(true);
@@ -22,6 +86,7 @@ class CriarPessoaStore extends Store<Pessoa> {
         pessoaStore.getAllPessoas();
       },
     );
+    setLoading(false);
   }
 
   Future<void> updatePessoa(Pessoa pessoa) async {
@@ -36,5 +101,6 @@ class CriarPessoaStore extends Store<Pessoa> {
         pessoaStore.getAllPessoas();
       },
     );
+    setLoading(false);
   }
 }
